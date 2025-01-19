@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import './App.css'
+import Home from './Components/Home'
+import { Routes, Route, useLocation, Router } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <div className='flex items-center justify-center'>
-        <h1 className='bg-gray-600 text-white text-3xl w-fit'>Hello world!!</h1>
+      <div>
+        <Routes>
+          <Route path='/' element={<Home />}/>
+        </Routes>
       </div>
-    </>
   )
 }
 
