@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from './Navbar';
-import Products from './Products';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
-import DailySpecial from '../Categories/DailySpecial';
 import axios from 'axios';
+import Products from '../Categories/Products';
 
 const Home = () => {
 
@@ -14,13 +12,19 @@ const Home = () => {
       }
       fetch();
   },[])
+  
   return (
     <div className=''>
       <Navbar />
       <div className='flex flex-col'>
         <h1 className='text-center text-3xl'>AgroMart</h1>
         <div className='m-3'>
-          <DailySpecial />
+          <h1 className='text-2xl ml-7'>Today deals!!</h1>
+          <Products />
+        </div>
+        <div className='m-3'>
+          <h1 className='text-2xl text-center'>Our Products</h1>
+          <Products />
         </div>
       </div>
     </div>
