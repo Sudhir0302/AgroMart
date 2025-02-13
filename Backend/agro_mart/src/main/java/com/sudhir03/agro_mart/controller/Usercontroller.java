@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class controller {
+public class Usercontroller {
 
     @Autowired
     private UserRepo userRepo;
