@@ -1,11 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
 import ProductLayout from './ProductLayout';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCart } from '../slices/cartSlice';
+import {updateUserCart } from '../slices/userSlice';
 
 const Products = () => {
     
-    const scrollRef = useRef(null);
+    const dispatch=useDispatch();
 
+    const user=useSelector((state)=>state.userdetails.users);
+
+    const username = useSelector((state) => 
+        state.userdetails.users && state.userdetails.users.length > 0 
+            ? state.userdetails.users[0].username 
+            : ""
+    );
+    
+
+    const scrollRef = useRef(null);
+    
     const scroll = (direction) => {
         if (scrollRef.current) {
             const { current } = scrollRef;
@@ -16,25 +30,28 @@ const Products = () => {
         }
     };
 
-    const [cart, setCart] = useState([]);
 
-    const handleCart = (data, Qnty) => {
-        setCart((prevcart) => {
-            const exists = prevcart.find(item => item.Product_name === data.name);
-    
-            if (exists) {
-                return prevcart.map(item => 
-                    item.Product_name === data.name ? { ...item, Qnty: item.Qnty + Qnty } : item
-                );
-            } else {
-                return [...prevcart, { Product_name: data.name, Qnty: Qnty }];
-            }
-        });
+    const cart = useSelector(state => state.cartdetails.cart);
+
+    const handleCart = (product, Qnty) => {
+
+        dispatch(setCart({product,Qnty,username}))
+
+        // const cart = useSelector(state => state.cartdetails.cart);
     };
+
+    useEffect(() => {
+        dispatch(updateUserCart({ username, cart }));
+    }, [cart, dispatch, username]);
+
 
     useEffect(() => {
         console.log("Cart Updated:", cart);
     }, [cart]);
+
+    useEffect(() => {
+        console.log("User Updated:", user);
+    }, [user]);
     
     const imgurl = [
         { 
