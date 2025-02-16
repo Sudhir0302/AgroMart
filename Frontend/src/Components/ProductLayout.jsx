@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 
-const ProductLayout = ({ imgurl }) => {
+const ProductLayout = ({ data ,handleCart}) => {
     const [count, setCount] = useState(0);
     const [Qnty, setQnty] = useState(1);
     const [Added, setAdded] = useState(false);
-
-    const handleCart = (e) => {
-        e.preventDefault();
-        setAdded(true);
-    };
-
+    
     const handlePlus = (e) => {
         e.preventDefault();
         setCount(count + 1);
@@ -29,11 +24,11 @@ const ProductLayout = ({ imgurl }) => {
         <div className="relative">
             <div className="bg-gray-300 w-64 h-80 p-3 m-5 flex flex-col gap-3 items-center rounded-lg shadow-lg">
           
-                <img src={imgurl} className="w-32 h-28 object-cover rounded-md" alt="Product" />
+                <img src={data.url} className="w-32 h-28 object-cover rounded-md" alt="Product" />
 
               
                 <h2 className="text-lg font-bold text-center leading-tight h-10 overflow-hidden">
-                    Product Name
+                    {data.name}
                 </h2>
 
                 <select className="w-44 p-1 border border-gray-400 rounded" onChange={handleQnty}>
@@ -51,9 +46,10 @@ const ProductLayout = ({ imgurl }) => {
 
                 <button 
                     className="bg-green-500 text-white p-2 w-full font-bold rounded hover:bg-green-600 transition"
-                    onClick={handleCart}
+                    onClick={()=>handleCart(data,Qnty)}
                 >
-                    {Added ? 'Added' : 'Add to Cart'}
+                    {/* {Added ? 'Added' : 'Add to Cart'} */}
+                    Add to Cart
                 </button>
             </div>
         </div>

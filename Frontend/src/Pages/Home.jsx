@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Components/Navbar';
 import axios from 'axios';
-import Products from '../Categories/Products';
+import Products from '../Components/Products';
 
 const Home = () => {
 
