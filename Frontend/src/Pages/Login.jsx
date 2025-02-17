@@ -1,17 +1,35 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
 
-    const[user,setUser]=useState();
-    const[password,setPassword]=useState();
-
+    const[user,setUser]=useState("");
+    const[password,setPassword]=useState("");
+    const[msg,setMsg]=useState(null);
+    const[isLogin,setIsLogin]=useState(false);
     const navigate=useNavigate();
 
     const handleLogin=(e)=>{
         e.preventDefault();
         // alert("login");
-        navigate('/home');
+        const login=async()=>{
+            try {
+                const res=await axios.put("http://localhost:8080/users",{
+                    username:user,
+                    password:password
+                });
+                if(res.status===200){
+                    console.log(res);
+                    setIsLogin(true);
+                    navigate('/home');
+                }
+            } catch (error) {
+                setMsg("Invalid...")
+                console.error("Login failed", error);
+            }
+        }
+        login();
     }
     return (
         <div className="flex flex-col items-center h-screen p-56">
@@ -22,7 +40,9 @@ const Login = () => {
                         <label className="w-32">Username/Email</label>
                         <input 
                             type="text" 
-                            className="border p-1" 
+                            className="border p-1"
+                            value={user}
+                            onChange={(e)=>setUser(e.target.value)} 
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -30,11 +50,14 @@ const Login = () => {
                         <input 
                             type="password" 
                             className="border p-1" 
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)} 
                         />
                     </div>
+                    <h2 className='text-red-800 text-xl'>{msg}</h2>
                     <button 
                         className='bg-blue-400 rounded-sm p-2 w-28 mt-3'
-                        onClick={handleLogin}
+                        onClick={handleLogin}   
                     >
                         Login
                     </button>

@@ -5,13 +5,13 @@ import Products from '../Components/Products';
 
 const Home = () => {
 
-  useEffect(()=>{
-      const fetch=async()=>{
-         const res=await axios.get("http://localhost:8080/users");
-         console.log(res.data);
-      }
-      fetch();
-  },[])
+  // useEffect(()=>{
+  //     const fetch=async()=>{
+  //        const res=await axios.get("http://localhost:8080/users");
+  //        console.log(res.data);
+  //     }
+  //     fetch();
+  // },[])
   
   return (
     <div className=''>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setUsers } from '../slices/userSlice';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 const Signup = () => {
 
@@ -23,8 +24,20 @@ const Signup = () => {
             [name]:value,
         }))
     }
+
     const handleSignup=(e)=>{
         e.preventDefault();
+
+        const signup=async() =>{
+            const res=await axios.post("http://localhost:8080/users1",userdetails);
+            if(res){
+                navigate('/home');
+            }else{
+                //invalid credentialss...      
+            }
+        }
+        signup();
+
         dispatch(setUsers(userdetails));
         setUserdetails({
             username:"",
@@ -32,7 +45,6 @@ const Signup = () => {
             phoneno:"",
             password:"",
         });
-        navigate('/home');
     }
     
     return (
