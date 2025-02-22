@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { setLogin } from '../slices/loginSlice';
 
 const Login = () => {
 
@@ -9,6 +11,8 @@ const Login = () => {
     const[msg,setMsg]=useState(null);
     const[isLogin,setIsLogin]=useState(false);
     const navigate=useNavigate();
+
+    const dispatch=useDispatch();
 
     const handleLogin=(e)=>{
         e.preventDefault();
@@ -20,7 +24,9 @@ const Login = () => {
                     password:password
                 });
                 if(res.status===200){
-                    console.log(res);
+                    console.log(res.data);
+                    // dispatch(setUser(res.data));
+                    dispatch(setLogin(res.data));
                     setIsLogin(true);
                     navigate('/home');
                 }

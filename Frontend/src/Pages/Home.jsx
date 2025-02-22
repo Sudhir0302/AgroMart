@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import axios from 'axios';
 import Products from '../Components/Products';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
 
@@ -12,7 +13,15 @@ const Home = () => {
   //     }
   //     fetch();
   // },[])
-  
+
+  //here the user specifies reducer name
+  const user=useSelector((state)=>state.login.user);
+
+  //here the user specifies state name
+  useEffect(()=>{
+    console.log(user.username);
+  },[])
+
   return (
     <div className=''>
       <Navbar />

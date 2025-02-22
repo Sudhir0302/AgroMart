@@ -3,21 +3,16 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ProductLayout from './ProductLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../slices/cartSlice';
-import {updateUserCart } from '../slices/userSlice';
+import { updateUserCart } from '../slices/loginSlice';
 
 const Products = () => {
     
     const dispatch=useDispatch();
 
-    const user=useSelector((state)=>state.userdetails.users);
+    const user=useSelector((state)=>state.login.user);
 
-    const username = useSelector((state) => 
-        state.userdetails.users && state.userdetails.users.length > 0 
-            ? state.userdetails.users[0].username 
-            : ""
-    );
+    const username =user.username;
     
-
     const scrollRef = useRef(null);
     
     const scroll = (direction) => {
@@ -37,21 +32,11 @@ const Products = () => {
 
         dispatch(setCart({product,Qnty,username}))
 
-        // const cart = useSelector(state => state.cartdetails.cart);
     };
-
-    useEffect(() => {
-        dispatch(updateUserCart({ username, cart }));
-    }, [cart, dispatch, username]);
-
 
     useEffect(() => {
         console.log("Cart Updated:", cart);
     }, [cart]);
-
-    useEffect(() => {
-        console.log("User Updated:", user);
-    }, [user]);
     
     const imgurl = [
         { 

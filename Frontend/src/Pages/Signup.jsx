@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { setUsers } from '../slices/userSlice';
+// import { useDispatch } from 'react-redux';
+// import { setUsers } from '../slices/userSlice';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ const Signup = () => {
 
     const navigate=useNavigate();
 
-    const dispatch=useDispatch();
+    // const dispatch=useDispatch();
 
     const[userdetails,setUserdetails]=useState({
         username:"",
@@ -31,14 +31,12 @@ const Signup = () => {
         const signup=async() =>{
             const res=await axios.post("http://localhost:8080/users1",userdetails);
             if(res){
-                navigate('/home');
+                navigate('/');
             }else{
-                //invalid credentialss...      
+                // invalid credentialss...      
             }
         }
         signup();
-
-        dispatch(setUsers(userdetails));
         setUserdetails({
             username:"",
             email:"",

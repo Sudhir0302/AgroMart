@@ -13,19 +13,31 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "phoneno")
+    private Long phoneno;
+
+    public Long getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(Long phoneno) {
+        this.phoneno = phoneno;
+    }
+
     public User() {}
 
-    public User(int id, String username, String password, String email) {
+    public User(int id, String username, String password, String email,Long phoneno) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.phoneno=phoneno;
     }
 
     public int getId() {
@@ -67,6 +79,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneno='" + phoneno + '\'' +
                 '}';
     }
 }

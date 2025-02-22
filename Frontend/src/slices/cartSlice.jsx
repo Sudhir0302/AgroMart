@@ -15,15 +15,14 @@ export const cartSlice=createSlice({
     initialState,
     reducers:{
         setCart:(state,action)=>{
-            // state.cart=[...state.cart,action.payload];
             const {product,Qnty,username}=action.payload;
 
-            const existing=state.cart.find(item=>item.product===product);
+            const existing=state.cart.find(item=>item.product===product&&item.username===username);
 
             if(existing){
-                existing.Qnty+=Qnty;
+                existing.Qnty+=Number(Qnty);
             }else{
-                state.cart.push({product,Qnty,username});
+                state.cart.push({product,Qnty:Number(Qnty),username});
             }
         }   
     }
