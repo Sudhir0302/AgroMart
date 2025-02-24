@@ -4,14 +4,17 @@ import ProductLayout from './ProductLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../slices/cartSlice';
 import { updateUserCart } from '../slices/loginSlice';
+import axios from 'axios';
 
 const Products = () => {
     
     const dispatch=useDispatch();
 
     const user=useSelector((state)=>state.login.user);
-
-    const username =user.username;
+    let username="";
+    if(user){
+         username=user.username;
+    }
     
     const scrollRef = useRef(null);
     
@@ -28,9 +31,14 @@ const Products = () => {
 
     const cart = useSelector(state => state.cartdetails.cart);
 
-    const handleCart = (product, Qnty) => {
+    const handleCart = (product, qnty) => {
 
-        dispatch(setCart({product,Qnty,username}))
+        const addcart=async()=>{
+            const res=axios.post("http://localhost:8080/cart/addcart",{product,qnty,username});
+            console.log(res);
+        }
+        addcart();
+        dispatch(setCart({product,qnty,username}))
 
     };
 

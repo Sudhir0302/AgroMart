@@ -18,9 +18,9 @@ const Home = () => {
   const user=useSelector((state)=>state.login.user);
 
   //here the user specifies state name
-  useEffect(()=>{
-    console.log(user.username);
-  },[])
+  // useEffect(()=>{
+  //   console.log(user.username);
+  // },[])
 
   return (
     <div className=''>

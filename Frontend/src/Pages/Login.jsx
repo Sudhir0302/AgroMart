@@ -9,7 +9,6 @@ const Login = () => {
     const[user,setUser]=useState("");
     const[password,setPassword]=useState("");
     const[msg,setMsg]=useState(null);
-    const[isLogin,setIsLogin]=useState(false);
     const navigate=useNavigate();
 
     const dispatch=useDispatch();
@@ -27,7 +26,7 @@ const Login = () => {
                     console.log(res.data);
                     // dispatch(setUser(res.data));
                     dispatch(setLogin(res.data));
-                    setIsLogin(true);
+                    // setIsLogin(true);
                     navigate('/home');
                 }
             } catch (error) {
