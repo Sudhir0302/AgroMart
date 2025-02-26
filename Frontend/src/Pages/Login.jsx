@@ -1,17 +1,35 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { setLogin } from '../slices/loginSlice';
+import { setCart } from '../slices/cartSlice';
 
 const Login = () => {
 
     const[user,setUser]=useState("");
     const[password,setPassword]=useState("");
     const[msg,setMsg]=useState(null);
+    const[isLogin,setIsLogin]=useState(false);
+
     const navigate=useNavigate();
 
     const dispatch=useDispatch();
+ 
+    const fetch=async(user)=>{
+        const res=await axios.get("http://localhost:8080/cart/getcart", {
+        params: { username: user }, 
+        });
+        console.log(res.data);
+        if(res){
+        // dispatch(setCart(res));
+        let data=res.data;
+        data.map((item)=>{
+            dispatch(setCart(item));
+            console.log((parseFloat)(item.qnty));
+        })
+        }   
+    }
 
     const handleLogin=(e)=>{
         e.preventDefault();
@@ -24,6 +42,8 @@ const Login = () => {
                 });
                 if(res.status===200){
                     console.log(res.data);
+                    fetch(res.data.username);
+                    setIsLogin(true);
                     // dispatch(setUser(res.data));
                     dispatch(setLogin(res.data));
                     // setIsLogin(true);

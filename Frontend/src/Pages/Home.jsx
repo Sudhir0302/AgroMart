@@ -2,20 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import axios from 'axios';
 import Products from '../Components/Products';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCart } from '../slices/cartSlice';
 
 const Home = () => {
-
-  // useEffect(()=>{
-  //     const fetch=async()=>{
-  //        const res=await axios.get("http://localhost:8080/users");
-  //        console.log(res.data);
-  //     }
-  //     fetch();
-  // },[])
-
+  
   //here the user specifies reducer name
-  const user=useSelector((state)=>state.login.user);
+  
+  // const user=useSelector((state)=>state.login.user);
+
+  // const dispatch=useDispatch();
+
 
   //here the user specifies state name
   // useEffect(()=>{

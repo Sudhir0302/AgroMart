@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const ProductLayout = ({ data ,handleCart}) => {
+const ProductLayout = ({ data ,handleCart,Added}) => {
     const [count, setCount] = useState(1);
     const [Qnty, setQnty] = useState(1);
-    const [Added, setAdded] = useState(false);
+    // const [Added, setAdded] = useState(false);
     
     const handlePlus = (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ const ProductLayout = ({ data ,handleCart}) => {
 
     const handleQnty = (e) => {
         e.preventDefault();
-        setQnty(Number(e.target.value));
+        setQnty(parseFloat(e.target.value));
     };
 
     return (
@@ -46,10 +46,10 @@ const ProductLayout = ({ data ,handleCart}) => {
 
                 <button 
                     className="bg-green-500 text-white p-2 w-full font-bold rounded hover:bg-green-600 transition"
-                    onClick={()=>handleCart(data.name,Number(Qnty*count))}
+                    onClick={()=>handleCart(data.name,parseFloat(Qnty*count))}
                 >
-                    {/* {Added ? 'Added' : 'Add to Cart'} */}
-                    Add to Cart
+                    {Added ? 'Go to Cart' : 'Add to Cart'}
+                    {/* Add to Cart */}
                 </button>
             </div>
         </div>

@@ -31,10 +31,15 @@ const Products = () => {
 
     const cart = useSelector(state => state.cartdetails.cart);
 
+    const[Added,setAdded]=useState(false);
+
     const handleCart = (product, qnty) => {
 
         const addcart=async()=>{
             const res=axios.post("http://localhost:8080/cart/addcart",{product,qnty,username});
+            if(res){
+                setAdded(true);
+            }
             console.log(res);
         }
         addcart();
@@ -92,7 +97,7 @@ const Products = () => {
             <div ref={scrollRef} className="flex overflow-x-auto whitespace-nowrap scrollbar-hide w-full p-2">
                 <div className="flex w-max space-x-16">
                     {imgurl.map((data, index) => (
-                        <ProductLayout key={index} data={data} handleCart={handleCart}/>
+                        <ProductLayout key={index} data={data} handleCart={handleCart} Added={Added}/>
                     ))}
                 </div>
             </div>
