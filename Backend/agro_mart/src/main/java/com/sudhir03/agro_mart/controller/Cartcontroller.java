@@ -18,11 +18,21 @@ public class Cartcontroller {
     @Autowired
     private CartRepo cartRepo;
 
-    @PostMapping("/addcart")
+    @PutMapping("/addcart")
     public ResponseEntity<?> addcart(@RequestBody Cart cart){
         try{
-            Cart saved= cartRepo.save(cart);
-            return ResponseEntity.ok(saved);
+//            Cart saved= cartRepo.save(cart);
+            List<Cart> exist=cartRepo.findByUsername(cart.getUsername());
+            for(Cart cart1 : exist)
+            {
+                if(cart1.getProduct().equals(cart.getProduct())){
+                    cart1.setQnty(cart1.getQnty()+cart.getQnty());
+                    cartRepo.save(cart1);
+                    return ResponseEntity.ok(200);
+                }
+            }
+            cartRepo.save(cart);
+            return ResponseEntity.ok(200);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

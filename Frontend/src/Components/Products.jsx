@@ -36,7 +36,7 @@ const Products = () => {
     const handleCart = (product, qnty) => {
 
         const addcart=async()=>{
-            const res=axios.post("http://localhost:8080/cart/addcart",{product,qnty,username});
+            const res=axios.put("http://localhost:8080/cart/addcart",{product,qnty,username});
             if(res){
                 setAdded(true);
             }
