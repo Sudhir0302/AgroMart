@@ -3,6 +3,7 @@ package com.sudhir03.agro_mart.controller;
 import com.sudhir03.agro_mart.model.Cart;
 import com.sudhir03.agro_mart.model.UserDTO;
 import com.sudhir03.agro_mart.repo.CartRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class Cartcontroller {
     }
 
     @GetMapping("/getcart")
-    public ResponseEntity<?> getCart(@RequestParam String username)
+    public ResponseEntity<?> getcart(@RequestParam String username)
     {
         System.out.println(username);
         List<Cart> res=cartRepo.findByUsername(username);
@@ -47,4 +48,12 @@ public class Cartcontroller {
         return ResponseEntity.ok(res);
     }
 
+    @DeleteMapping("/delete")
+    @Transactional
+    public ResponseEntity<?> deletecart(@RequestParam String product,@RequestParam String username)
+    {
+//        System.out.println(product);
+        cartRepo.deleteByProductAndUsername(product,username);
+        return ResponseEntity.ok(200);
+    }
 }

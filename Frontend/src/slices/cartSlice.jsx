@@ -24,10 +24,14 @@ export const cartSlice=createSlice({
             }else{
                 state.cart.push({product,qnty:Number(qnty),username});
             }
-        }   
+        },
+        removeFromCart:(state,action)=>{
+            const { product, username } = action.payload;
+            state.cart = state.cart.filter(item => !(item.product === product && item.username === username));
+        }
     }
 });
 
-export const {setCart}=cartSlice.actions;
+export const {setCart,removeFromCart}=cartSlice.actions;
 
 export default cartSlice.reducer;

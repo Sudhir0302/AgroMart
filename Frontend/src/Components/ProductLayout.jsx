@@ -48,8 +48,8 @@ const ProductLayout = ({ data ,handleCart,Added}) => {
                     className="bg-green-500 text-white p-2 w-full font-bold rounded hover:bg-green-600 transition"
                     onClick={()=>handleCart(data.name,parseFloat(Qnty*count))}
                 >
-                    {Added ? 'Go to Cart' : 'Add to Cart'}
-                    {/* Add to Cart */}
+                    {/* {Added ? 'Go to Cart' : 'Add to Cart'} */}
+                    Add to Cart
                 </button>
             </div>
         </div>
