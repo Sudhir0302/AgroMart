@@ -17,8 +17,13 @@ const Login = () => {
     const dispatch=useDispatch();
  
     const fetch=async(user)=>{
+        const token=localStorage.getItem("token");
+
         const res=await axios.get("http://localhost:8080/cart/getcart", {
         params: { username: user }, 
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
         });
         console.log(res.data);
         if(res){
@@ -36,13 +41,16 @@ const Login = () => {
         // alert("login");
         const login=async()=>{
             try {
-                const res=await axios.put("http://localhost:8080/users",{
+                const res=await axios.post("http://localhost:8080/login",{
                     username:user,
                     password:password
                 });
                 if(res.status===200){
-                    console.log(res.data);
-                    fetch(res.data.username);
+                    console.log(res);
+                    const token=res.data.token;
+                    localStorage.setItem("token",token);
+                    console.log(user);
+                    fetch(user);
                     setIsLogin(true);
                     // dispatch(setUser(res.data));
                     dispatch(setLogin(res.data));

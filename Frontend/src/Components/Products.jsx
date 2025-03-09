@@ -36,7 +36,18 @@ const Products = () => {
     const handleCart = (product, qnty) => {
 
         const addcart=async()=>{
-            const res=axios.put("http://localhost:8080/cart/addcart",{product,qnty,username});
+            const token=localStorage.getItem("token");
+            const res=axios.put("http://localhost:8080/cart/addcart",
+                {
+                    product,qnty,username
+                },
+                {
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json", 
+                    }
+                }
+            );
             if(res){
                 setAdded(true);
             }

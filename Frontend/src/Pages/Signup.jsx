@@ -29,13 +29,13 @@ const Signup = () => {
         e.preventDefault();
 
         const signup=async() =>{
-            const res=await axios.post("http://localhost:8080/users1",userdetails);
+            const res=await axios.post("http://localhost:8080/register",userdetails);
             if(res){
                 navigate('/');
             }else{
                 // invalid credentialss...      
             }
-        }
+        }   
         signup();
         setUserdetails({
             username:"",

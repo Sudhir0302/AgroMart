@@ -10,9 +10,14 @@ const Cart = () => {
   const cart = useSelector(state => state.cartdetails.cart); 
 
   const handleDelete = async (product, user) => {
+    const token=localStorage.getItem("token");
+
     try {
       const res = await axios.delete("http://localhost:8080/cart/delete", {
         params: { product, username: user },
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
       });
 
       if (res.status === 200) {
