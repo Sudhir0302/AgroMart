@@ -40,7 +40,7 @@ public class Cartcontroller {
     }
 
     @GetMapping("/getcart")
-    public ResponseEntity<?> getcart(@RequestParam String username)
+    public ResponseEntity<?> getcart(@RequestParam(value ="username") String username)
     {
         System.out.println(username);
         List<Cart> res=cartRepo.findByUsername(username);

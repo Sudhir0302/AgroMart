@@ -1,49 +1,50 @@
 package com.sudhir03.agro_mart.controller;
 
+import com.sudhir03.agro_mart.model.AuthResponse;
 import com.sudhir03.agro_mart.model.User;
 import com.sudhir03.agro_mart.model.UserDTO;
 import com.sudhir03.agro_mart.repo.UserRepo;
+import com.sudhir03.agro_mart.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin
-public class Usercontroller {
+public class UserController {
 
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
+
     @GetMapping("/home")
-    public String call(){
-//        System.out.println("adf");
-        return "hello";
+    public ResponseEntity<String> home() {
+        return ResponseEntity.ok("Hello, Welcome to Agro Mart!");
     }
 
-    @GetMapping("/")
-    public String call1(){
-        return "agromartttt";
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepo.save(user);
+        return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/users")
-    public ResponseEntity<?> getuser(@RequestBody UserDTO user){
-        User exists=userRepo.findByEmail(user.getUsername());
-        if(exists!=null){
-            return ResponseEntity.ok(exists);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserDTO user) {
+        User existingUser = userRepo.findByUsername(user.getUsername());
+
+        if (existingUser == null || !passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("user not found",HttpStatus.UNAUTHORIZED);
-    }
 
-    @PostMapping("/users1")
-    public ResponseEntity<?> postuser(@RequestBody User user){
-        try{
-            User saved=userRepo.save(user);
-            return ResponseEntity.ok(saved);
-        }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        String token = jwtService.generateToken(existingUser.getUsername());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }
