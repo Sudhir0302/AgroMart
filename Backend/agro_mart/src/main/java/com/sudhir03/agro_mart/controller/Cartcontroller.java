@@ -39,6 +39,26 @@ public class Cartcontroller {
         }
     }
 
+    @PutMapping("/updatecart")
+    public ResponseEntity<?> updatecart(@RequestBody Cart cart){
+        try{
+//            Cart saved= cartRepo.save(cart);
+            List<Cart> exist=cartRepo.findByUsername(cart.getUsername());
+            for(Cart cart1 : exist)
+            {
+                if(cart1.getProduct().equals(cart.getProduct())){
+                    cart1.setQnty(cart.getQnty());
+                    cartRepo.save(cart1);
+                    return ResponseEntity.ok(200);
+                }
+            }
+            cartRepo.save(cart);
+            return ResponseEntity.ok(200);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/getcart")
     public ResponseEntity<?> getcart(@RequestParam(value ="username") String username)
     {
