@@ -3,7 +3,6 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ProductLayout from './ProductLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../slices/cartSlice';
-import { updateUserCart } from '../slices/loginSlice';
 import axios from 'axios';
 
 const Products = () => {
@@ -13,9 +12,9 @@ const Products = () => {
     const user=useSelector((state)=>state.login.user);
     let username="";
     if(user){
-         username=user.username;
+         username=user.user;
     }
-    
+    console.log(username)
     const scrollRef = useRef(null);
     
     const scroll = (direction) => {

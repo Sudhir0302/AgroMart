@@ -16,6 +16,6 @@ export const loginSlice=createSlice({
 })
 
 
-export const {setLogin,updateUserCart} =loginSlice.actions;
+export const {setLogin} =loginSlice.actions;
 
 export default loginSlice.reducer;

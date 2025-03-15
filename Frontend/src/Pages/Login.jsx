@@ -53,7 +53,7 @@ const Login = () => {
                     fetch(user);
                     setIsLogin(true);
                     // dispatch(setUser(res.data));
-                    dispatch(setLogin(res.data));
+                    dispatch(setLogin({user}));
                     // setIsLogin(true);
                     navigate('/home');
                 }
