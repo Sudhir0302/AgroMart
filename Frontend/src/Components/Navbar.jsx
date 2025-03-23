@@ -31,6 +31,7 @@ const Navbar = () => {
           <button onClick={handleClick} value="cart">Cart</button>
           <button onClick={handleClick} value="contact">Contact</button>
           <button onClick={handleClick} value="about">About</button>
+          <button onClick={handleClick} value="explore">Explore</button>
           <button onClick={handleLogin}>
             {user ? "Logout":"Login" }
           </button>

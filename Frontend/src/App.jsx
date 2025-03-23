@@ -8,10 +8,18 @@ import Cart from './Pages/Cart';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
 import Signup from './Pages/Signup';
+import Navbar from './Components/Navbar';
 
 function App() {
+  const loc=useLocation();
+
+  const hide=loc.pathname==='/'||loc.pathname==='/Signup';
+
   return (
       <div>
+        {!hide&&
+          <Navbar />
+        }
         <Routes>
           <Route path='/' element={<Login />}/>
           <Route path='/Signup' element={<Signup />}/>

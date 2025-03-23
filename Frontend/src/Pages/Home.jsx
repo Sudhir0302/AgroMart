@@ -21,7 +21,6 @@ const Home = () => {
 
   return (
     <div className=''>
-      <Navbar />
       <div className='flex flex-col'>
         <h1 className='text-center text-3xl'>AgroMart</h1>
         <div className='m-3'>
