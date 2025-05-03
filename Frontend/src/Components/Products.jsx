@@ -14,7 +14,7 @@ const Products = () => {
     if(user){
          username=user.user;
     }
-    console.log(username)
+    // console.log(username)
     const scrollRef = useRef(null);
     
     const scroll = (direction) => {
@@ -50,16 +50,16 @@ const Products = () => {
             if(res){
                 setAdded(true);
             }
-            console.log(res);
+            // console.log(res);
         }
         addcart();
         dispatch(setCart({product,qnty,username}))
 
     };
 
-    useEffect(() => {
-        console.log("Cart Updated:", cart);
-    }, [cart]);
+    // useEffect(() => {
+    //     console.log("Cart Updated:", cart);
+    // }, [cart]);
     
     const imgurl = [
         { 

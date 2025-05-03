@@ -16,8 +16,9 @@ const Navbar = () => {
 
   const handleLogin=()=>{
     if(user){
+      localStorage.setItem('token',null)
       dispatch(setLogin(null));
-      // navigate('/');
+      navigate('/');
     }else{
       navigate('/');
     }

@@ -9,6 +9,7 @@ import About from './Pages/About';
 import Contact from './Pages/Contact';
 import Signup from './Pages/Signup';
 import Navbar from './Components/Navbar';
+import Protected from './Components/Protected';
 
 function App() {
   const loc=useLocation();
@@ -23,11 +24,14 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />}/>
           <Route path='/Signup' element={<Signup />}/>
-          <Route path='/home' element={<Home />}/>
-          <Route path='/explore' element={<Explore />}/>
-          <Route path='/cart' element={<Cart />}/>
-          <Route path='/about' element={<About />}/>
-          <Route path='/contact' element={<Contact />}/>
+          <Route element={<Protected />}>
+            <Route path='/home' element={<Home />}/>
+            <Route path='/explore' element={<Explore />}/>
+            <Route path='/cart' element={<Cart />}/>
+            <Route path='/about' element={<About />}/>
+            <Route path='/contact' element={<Contact />}/>
+          </Route>
+          <Route path='*' element={<h2>404 page not found</h2>} />
         </Routes>
       </div>
   )

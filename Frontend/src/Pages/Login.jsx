@@ -49,7 +49,7 @@ const Login = () => {
                     console.log(res);
                     const token=res.data.token;
                     localStorage.setItem("token",token);
-                    console.log(user);
+                    // console.log(user);
                     fetch(user);
                     setIsLogin(true);
                     // dispatch(setUser(res.data));
