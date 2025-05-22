@@ -4,20 +4,37 @@ import axios from 'axios';
 import Products from '../Components/Products';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../slices/cartSlice';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   
-  //here the user specifies reducer name
+  //here the user specifies object in initialstates
   
   // const user=useSelector((state)=>state.login.user);
 
   // const dispatch=useDispatch();
 
 
-  //here the user specifies state name
+  //here the user specifies state(object) name
   // useEffect(()=>{
   //   console.log(user.username);
   // },[])
+
+  const {isLoading}=useQuery({
+    queryKey:["data"],
+    queryFn: async()=>{
+      const token=localStorage.getItem("token");
+      const res=await axios.get("http://localhost:8080/getAllusers",{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(res);
+      return res;
+    }
+  })
+
+  console.log(isLoading);
 
   return (
     <div className=''>

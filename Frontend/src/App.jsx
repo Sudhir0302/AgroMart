@@ -10,14 +10,24 @@ import Contact from './Pages/Contact';
 import Signup from './Pages/Signup';
 import Navbar from './Components/Navbar';
 import Protected from './Components/Protected';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 
 function App() {
   const loc=useLocation();
 
   const hide=loc.pathname==='/'||loc.pathname==='/Signup';
 
+
+  const queryclient=new QueryClient({
+    defaultOptions:{
+      queries:{
+        staleTime: 60*1000  //1 minute
+      }
+    }
+  });
+
   return (
-      <div>
+     <QueryClientProvider client={queryclient}>
         {!hide&&
           <Navbar />
         }
@@ -33,7 +43,7 @@ function App() {
           </Route>
           <Route path='*' element={<h2>404 page not found</h2>} />
         </Routes>
-      </div>
+      </QueryClientProvider>
   )
 }
 
